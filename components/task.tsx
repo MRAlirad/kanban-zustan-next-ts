@@ -1,15 +1,13 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-export default function Task({
-	title,
-	description,
-	status,
-}: {
+interface Props {
 	title: string;
-	description: string;
+	description?: string;
 	status: string;
-}) {
+}
+
+function Task({ title, description, status }: Props) {
 	return (
 		<div
 			className={cn(
@@ -43,3 +41,5 @@ export default function Task({
 		</div>
 	);
 }
+
+export default Task;

@@ -1,18 +1,20 @@
+'use client';
+
+import { useTaskStore } from '@/lib/store';
 import Task from './task';
+import { useMemo } from 'react';
 
-const tasks = [
-	{
-		id: '1234',
-		title: 'Our first task',
-		description: 'Some description',
-		status: 'DONE',
-	},
-];
+interface Props {
+	title: string;
+	status: string;
+}
 
-interface Props { title: string; status: string }
-
-export default function Column({ title, status }: Props) {
-	const filteredTasks = tasks.filter(task => task.status === status);
+function Column({ title, status }: Props) {
+	const tasks = useTaskStore(state => state.tasks);
+	const filteredTasks = useMemo(
+		() => tasks.filter(task => task.status === status),
+		[tasks, status]
+	);
 
 	return (
 		<section className="h-[600px] flex-1">
@@ -31,3 +33,5 @@ export default function Column({ title, status }: Props) {
 		</section>
 	);
 }
+
+export default Column;
